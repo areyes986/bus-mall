@@ -6,14 +6,49 @@ var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
 var picArray = [];
-//create constructor
 
+//create constructor
 function Pictures(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
 
   picArray.push(this);
+}
+
+//Random index gen
+function randomIndex(max){
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+
+function generateImages(){
+  var index = randomIndex(picArray.length);
+
+  picOne.src = picArray[index].src;
+  picOne.title = picArray[index].title;
+  picOne.alt = picArray[index].alt;
+
+  var indexTwo = randomIndex(picArray.length);
+
+  while(indexTwo === index){
+    indexTwo = randomIndex(picArray.length);
+  }
+
+  picTwo.src = picArray[indexTwo].src;
+  picTwo.title = picArray[indexTwo].title;
+  picTwo.alt = picArray[indexTwo].alt;
+
+  var indexThree = randomIndex(picArray.length);
+
+  while(indexThree === indexTwo){
+    indexThree = randomIndex(picArray.length);
+  }
+
+  picThree.src = picArray[indexThree].src;
+  picThree.title = picArray[indexThree].title;
+  picThree.alt = picArray[indexThree].alt;
+
 }
 
 function createOnPageLoad() {
@@ -41,4 +76,5 @@ function createOnPageLoad() {
 
 
 createOnPageLoad();
-console.table(picArray);
+generateImages();
+// console.table(picArray);
