@@ -23,32 +23,34 @@ function randomIndex(max){
 
 
 function generateImages(){
-  var index = randomIndex(picArray.length);
+  var indexOne = randomIndex(picArray.length);
 
-  picOne.src = picArray[index].src;
-  picOne.title = picArray[index].title;
-  picOne.alt = picArray[index].alt;
+  picOne.src = picArray[indexOne].src;
+  picOne.title = picArray[indexOne].title;
+  picOne.alt = picArray[indexOne].alt;
 
   var indexTwo = randomIndex(picArray.length);
 
-  while(indexTwo === index){
+  while(indexTwo === indexOne){
     indexTwo = randomIndex(picArray.length);
   }
-
+console.log(indexOne)
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
 
   var indexThree = randomIndex(picArray.length);
 
-  while(indexThree === indexTwo){
+  while(indexThree === indexTwo || indexThree === indexOne){
     indexThree = randomIndex(picArray.length);
-  }
+}
+console.log(indexTwo)
 
   picThree.src = picArray[indexThree].src;
   picThree.title = picArray[indexThree].title;
   picThree.alt = picArray[indexThree].alt;
-
+  console.log(indexThree)
+  
 }
 
 function createOnPageLoad() {
