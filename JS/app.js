@@ -5,6 +5,8 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
+var pictureContainer = document.getElementById('imageContainer');
+
 var picArray = [];
 
 //create constructor
@@ -12,45 +14,59 @@ function Pictures(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
+  this.click = 0;
+  this.viewed = 0;
 
   picArray.push(this);
 }
 
 //Random index gen
-function randomIndex(max){
+function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
 
-function generateImages(){
+function generateImages() {
   var indexOne = randomIndex(picArray.length);
 
   picOne.src = picArray[indexOne].src;
   picOne.title = picArray[indexOne].title;
   picOne.alt = picArray[indexOne].alt;
 
+  picArray[indexOne].viewed ++;
+
   var indexTwo = randomIndex(picArray.length);
 
-  while(indexTwo === indexOne){
+  while (indexTwo === indexOne) {
     indexTwo = randomIndex(picArray.length);
   }
-console.log(indexOne)
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
 
+  picArray[indexTwo].viewed ++;
+
   var indexThree = randomIndex(picArray.length);
 
-  while(indexThree === indexTwo || indexThree === indexOne){
+  while (indexThree === indexTwo || indexThree === indexOne) {
     indexThree = randomIndex(picArray.length);
-}
-console.log(indexTwo)
+  }
 
   picThree.src = picArray[indexThree].src;
   picThree.title = picArray[indexThree].title;
   picThree.alt = picArray[indexThree].alt;
-  console.log(indexThree)
-  
+
+  picArray[indexThree].viewed ++;
+
+  console.table(picArray);
+
+}
+
+//event listener
+function handleClick(event){
+  generateImages();
+  var vote = (event.target.title);
+  console.log(vote);
 }
 
 function createOnPageLoad() {
@@ -63,7 +79,7 @@ function createOnPageLoad() {
   new Pictures('chair', 'Chair');
   new Pictures('cthulhu', 'Cthulhu');
   new Pictures('dog-duck', 'Dog Duck');
-  new Pictures('dragon', 'Dragon');
+  new Pictures('dragon', 'Dragon Meat');
   new Pictures('pen', 'Pen');
   new Pictures('pet-sweep', 'Pet Sweep');
   new Pictures('scissors', 'Scissors');
@@ -73,10 +89,11 @@ function createOnPageLoad() {
   new Pictures('unicorn', 'Unicorn');
   new Pictures('usb', 'USB');
   new Pictures('water-can', 'Water Can');
-  new Pictures('wine-glass', 'Win Glass');
+  new Pictures('wine-glass', 'Wine Glass');
 }
 
 
 createOnPageLoad();
+pictureContainer.addEventListener('click', handleClick);
 generateImages();
 // console.table(picArray);
