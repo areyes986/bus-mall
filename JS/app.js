@@ -33,7 +33,7 @@ function generateImages() {
   picOne.title = picArray[indexOne].title;
   picOne.alt = picArray[indexOne].alt;
 
-  picArray[indexOne].viewed ++;
+  picArray[indexOne].viewed++;
 
   var indexTwo = randomIndex(picArray.length);
 
@@ -44,7 +44,7 @@ function generateImages() {
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
 
-  picArray[indexTwo].viewed ++;
+  picArray[indexTwo].viewed++;
 
   var indexThree = randomIndex(picArray.length);
 
@@ -56,17 +56,19 @@ function generateImages() {
   picThree.title = picArray[indexThree].title;
   picThree.alt = picArray[indexThree].alt;
 
-  picArray[indexThree].viewed ++;
-
-  console.table(picArray);
-
+  picArray[indexThree].viewed++;
 }
 
 //event listener
-function handleClick(event){
+function handleClick(event) {
+  var vote = event.target.title;
+  for (var i = 0; i < picArray.length; i++) {
+    if (vote === picArray[i].title) {
+      picArray[i].click++;
+    }
+  }
+  console.table(picArray);
   generateImages();
-  var vote = (event.target.title);
-  console.log(vote);
 }
 
 function createOnPageLoad() {
@@ -96,4 +98,4 @@ function createOnPageLoad() {
 createOnPageLoad();
 pictureContainer.addEventListener('click', handleClick);
 generateImages();
-// console.table(picArray);
+console.table(picArray);
