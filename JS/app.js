@@ -17,7 +17,6 @@ function Pictures(src, name) {
   this.alt = name;
   this.click = 0;
   this.viewed = 0;
-  this.product = `${name} had $`
 
   picArray.push(this);
 }
@@ -74,7 +73,7 @@ function handleClick(event) {
   rounds++;
   console.log(rounds);
   if (rounds === 25){
-    document.getElementById('imageContainer').innerHTML = '';
+    document.getElementById('imageContainer').innerHTML = ' ';
   }
   generateImages();
 }
