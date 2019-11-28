@@ -8,6 +8,7 @@ var picThree = document.getElementById('picture3');
 var pictureContainer = document.getElementById('imageContainer');
 
 var picArray = [];
+var rounds = 0;
 
 //create constructor
 function Pictures(src, name) {
@@ -16,6 +17,7 @@ function Pictures(src, name) {
   this.alt = name;
   this.click = 0;
   this.viewed = 0;
+  this.product = `${name} had $`
 
   picArray.push(this);
 }
@@ -59,6 +61,8 @@ function generateImages() {
   picArray[indexThree].viewed++;
 }
 
+
+
 //event listener
 function handleClick(event) {
   var vote = event.target.title;
@@ -67,9 +71,15 @@ function handleClick(event) {
       picArray[i].click++;
     }
   }
-  console.table(picArray);
+  rounds++;
+  console.log(rounds);
+  if (rounds === 25){
+    document.getElementById('imageContainer').innerHTML = '';
+  }
   generateImages();
 }
+
+
 
 function createOnPageLoad() {
   new Pictures('bag', 'Bag');
@@ -98,4 +108,4 @@ function createOnPageLoad() {
 createOnPageLoad();
 pictureContainer.addEventListener('click', handleClick);
 generateImages();
-console.table(picArray);
+// console.table(picArray);
