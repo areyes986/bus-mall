@@ -5,6 +5,7 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
+var getRounds = document.getElementById('rounds')
 var pictureContainer = document.getElementById('imageContainer');
 
 var picArray = [];
@@ -17,7 +18,6 @@ function Pictures(src, name) {
   this.alt = name;
   this.click = 0;
   this.viewed = 0;
-  this.product = `${name} had $`
 
   picArray.push(this);
 }
@@ -72,13 +72,17 @@ function handleClick(event) {
     }
   }
   rounds++;
-  console.log(rounds);
+  countRounds();
   if (rounds === 25){
-    document.getElementById('imageContainer').innerHTML = '';
+    document.getElementById('imageContainer').innerHTML = 'hi';
   }
   generateImages();
 }
 
+//stating which round user is on
+function countRounds() {
+  getRounds.textContent = `Round ${rounds}`
+}
 
 
 function createOnPageLoad() {
@@ -108,4 +112,5 @@ function createOnPageLoad() {
 createOnPageLoad();
 pictureContainer.addEventListener('click', handleClick);
 generateImages();
+countRounds();
 // console.table(picArray);
