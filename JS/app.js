@@ -87,6 +87,7 @@ function countRounds() {
   getRounds.textContent = `Round ${rounds}`;
 }
 
+// list of products
 function listProducts() {
   for (var i = 0; i < picArray.length; i++){
     var liEl = document.createElement('li');
