@@ -5,11 +5,12 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
-var getRounds = document.getElementById('rounds')
+var getRounds = document.getElementById('rounds');
+var getProducts = document.getElementById('product-list');
 var pictureContainer = document.getElementById('imageContainer');
 
 var picArray = [];
-var rounds = 0;
+var rounds = 1;
 
 //create constructor
 function Pictures(src, name) {
@@ -73,15 +74,25 @@ function handleClick(event) {
   }
   rounds++;
   countRounds();
-  if (rounds === 25){
-    document.getElementById('imageContainer').innerHTML = 'hi';
+  if (rounds === 26){
+    getRounds.textContent = ' ';
+    document.getElementById('imageContainer').innerHTML = ' ';
+    listProducts();
   }
   generateImages();
 }
 
 //stating which round user is on
 function countRounds() {
-  getRounds.textContent = `Round ${rounds}`
+  getRounds.textContent = `Round ${rounds}`;
+}
+
+function listProducts() {
+  for (var i = 0; i < picArray.length; i++){
+    var liEl = document.createElement('li');
+    liEl.textContent = `${picArray[i].title} had ${picArray[i].click} votes and was shown ${picArray[i].viewed} times`;
+    getProducts.appendChild(liEl);
+  }
 }
 
 
