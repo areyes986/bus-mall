@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    background-color: rgb(186, 218, 235);
 }
 
 h1 {
@@ -8,4 +9,6 @@ h1 {
 #imageContainer > img  {
     width: 200px;
     margin: 50px;
+    border: ridge 4px rgb(165, 200, 214);
+    border-radius: 5px;
 }

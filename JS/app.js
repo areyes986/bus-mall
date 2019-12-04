@@ -10,7 +10,7 @@ var getProducts = document.getElementById('product-list');
 var pictureContainer = document.getElementById('imageContainer');
 
 var picArray = [];
-var rounds = 1;
+var rounds = 25;
 
 //create constructor
 function Pictures(src, name) {
@@ -63,7 +63,6 @@ function generateImages() {
 }
 
 
-
 //event listener
 function handleClick(event) {
   var vote = event.target.title;
@@ -72,12 +71,15 @@ function handleClick(event) {
       picArray[i].click++;
     }
   }
-  rounds++;
+  rounds--;
   countRounds();
-  if (rounds === 26){
-    getRounds.textContent = ' ';
-    document.getElementById('imageContainer').innerHTML = ' ';
+  if (rounds === 25){
+    generateImages();
+  }
+  if (rounds === 0){
     listProducts();
+    document.getElementById('imageContainer').innerHTML = ' ';
+    pictureContainer.removeventListener('click', handleClick);
   }
   generateImages();
 }
@@ -87,6 +89,15 @@ function countRounds() {
   getRounds.textContent = `Round ${rounds}`;
 }
 
+//show hide elem
+// function show(elem){
+//   elem.style.display = 'block';
+// }
+
+// function hide(elem){
+//   elem.style.display = 'block';
+// }
+
 // list of products
 function listProducts() {
   for (var i = 0; i < picArray.length; i++){
@@ -95,6 +106,9 @@ function listProducts() {
     getProducts.appendChild(liEl);
   }
 }
+
+
+
 
 
 function createOnPageLoad() {
