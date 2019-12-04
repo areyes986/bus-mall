@@ -12,10 +12,10 @@ var pictureContainer = document.getElementById('imageContainer');
 var picArray = [];
 var picArrayGenerate = [picOne, picTwo, picThree,];
 var rounds = 25;
-var picArrayTitle = 0;
+var picArrayTitle = [];
 console.log(picArrayTitle);
-var picArrayViewed = 0;
-var picArrayClicked = 0;
+var picArrayViewed = [];
+var picArrayClicked = [];
 
 //create constructor
 function Pictures(src, name) {
@@ -100,19 +100,22 @@ function makeChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
   for (var i = 0; i < picArray.length; i++) {
     picArrayTitle.push(picArray[i].title);
+    picArrayViewed.push(picArray[i].viewed);
+    picArrayClicked.push(picArray[i].click);
   }
+  
   var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'line',
+    type: 'bar',
 
     // The data for our dataset
     data: {
       labels: picArrayTitle,
       datasets: [{
-        label: 'My First dataset',
+        label: 'Bus Mall Votes!',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45]
+        data: picArrayViewed, picArrayClicked
       }]
     },
 
@@ -124,7 +127,6 @@ function makeChart() {
 
 
 function createOnPageLoad() {
-
   new Pictures('bag', 'Bag');
   new Pictures('banana', 'Banana');
   new Pictures('bathroom', 'Bathroom');
