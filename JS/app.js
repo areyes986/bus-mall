@@ -7,13 +7,15 @@ var picThree = document.getElementById('picture3');
 
 var getRounds = document.getElementById('rounds');
 var pictureContainer = document.getElementById('imageContainer');
-var getProducts = document.getElementById('product-list');
-
-var chartContainer = document.getElementById('myChart');
+// var getProducts = document.getElementById('product-list');
 
 var picArray = [];
 var picArrayGenerate = [picOne, picTwo, picThree,];
 var rounds = 25;
+var picArrayTitle = 0;
+console.log(picArrayTitle);
+var picArrayViewed = 0;
+var picArrayClicked = 0;
 
 //create constructor
 function Pictures(src, name) {
@@ -78,11 +80,6 @@ function countRounds() {
   getRounds.textContent = `Round ${rounds}`;
 }
 
-// show hide elem
-// function show(elem){
-//   elem.style.display = 'block';
-// }
-
 function hide(elem) {
   elem.style.display = 'none';
 }
@@ -96,17 +93,21 @@ function hide(elem) {
 //   }
 // }
 
-//my chart
 
+
+//my chart
 function makeChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
+  for (var i = 0; i < picArray.length; i++) {
+    picArrayTitle.push(picArray[i].title);
+  }
   var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'line',
 
     // The data for our dataset
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: picArrayTitle,
       datasets: [{
         label: 'My First dataset',
         backgroundColor: 'rgb(255, 99, 132)',
@@ -118,9 +119,12 @@ function makeChart() {
     // Configuration options go here
     options: {}
   });
+
 }
 
+
 function createOnPageLoad() {
+
   new Pictures('bag', 'Bag');
   new Pictures('banana', 'Banana');
   new Pictures('bathroom', 'Bathroom');
