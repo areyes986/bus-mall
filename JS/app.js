@@ -6,10 +6,11 @@ var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
 var getRounds = document.getElementById('rounds');
-var getProducts = document.getElementById('product-list');
 var pictureContainer = document.getElementById('imageContainer');
+var getProducts = document.getElementById('product-list');
 
 var picArray = [];
+var picArrayGenerate = [picOne, picTwo, picThree,];
 var rounds = 25;
 
 //create constructor
@@ -30,37 +31,23 @@ function randomIndex(max) {
 
 
 function generateImages() {
-  var indexOne = randomIndex(picArray.length);
+  var currentImages = [];
+  for (var i = 0; i < picArrayGenerate.length; i++) {
+    var indexes = randomIndex(picArray.length);
+    while (currentImages.includes(indexes)) {
+      indexes = randomIndex(picArray.length);
 
-  picOne.src = picArray[indexOne].src;
-  picOne.title = picArray[indexOne].title;
-  picOne.alt = picArray[indexOne].alt;
+    }
+    currentImages.push(indexes);
+    // console.log(currentImages);
 
-  picArray[indexOne].viewed++;
-
-  var indexTwo = randomIndex(picArray.length);
-
-  while (indexTwo === indexOne) {
-    indexTwo = randomIndex(picArray.length);
+    picArrayGenerate[i].src = picArray[indexes].src;
+    picArrayGenerate[i].title = picArray[indexes].title;
+    picArrayGenerate[i].alt = picArray[indexes].alt;
+    picArray[indexes].viewed++;
   }
-  picTwo.src = picArray[indexTwo].src;
-  picTwo.title = picArray[indexTwo].title;
-  picTwo.alt = picArray[indexTwo].alt;
-
-  picArray[indexTwo].viewed++;
-
-  var indexThree = randomIndex(picArray.length);
-
-  while (indexThree === indexTwo || indexThree === indexOne) {
-    indexThree = randomIndex(picArray.length);
-  }
-
-  picThree.src = picArray[indexThree].src;
-  picThree.title = picArray[indexThree].title;
-  picThree.alt = picArray[indexThree].alt;
-
-  picArray[indexThree].viewed++;
 }
+
 
 
 //event listener
@@ -73,15 +60,14 @@ function handleClick(event) {
   }
   rounds--;
   countRounds();
-  if (rounds === 25){
-    generateImages();
-  }
-  if (rounds === 0){
+  generateImages();
+  if (rounds === 0) {
+    hide(getRounds);
+    hide(pictureContainer);
     listProducts();
-    document.getElementById('imageContainer').innerHTML = ' ';
-    pictureContainer.removeventListener('click', handleClick);
   }
   generateImages();
+  // console.table(picArray);
 }
 
 //stating which round user is on
@@ -89,26 +75,23 @@ function countRounds() {
   getRounds.textContent = `Round ${rounds}`;
 }
 
-//show hide elem
+// show hide elem
 // function show(elem){
 //   elem.style.display = 'block';
 // }
 
-// function hide(elem){
-//   elem.style.display = 'block';
-// }
+function hide(elem) {
+  elem.style.display = 'none';
+}
 
 // list of products
 function listProducts() {
-  for (var i = 0; i < picArray.length; i++){
+  for (var i = 0; i < picArray.length; i++) {
     var liEl = document.createElement('li');
     liEl.textContent = `${picArray[i].title} had ${picArray[i].click} votes and was shown ${picArray[i].viewed} times`;
     getProducts.appendChild(liEl);
   }
 }
-
-
-
 
 
 function createOnPageLoad() {
