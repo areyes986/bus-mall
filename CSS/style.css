@@ -12,3 +12,7 @@ h1 {
     border: ridge 4px rgb(165, 200, 214);
     border-radius: 5px;
 }
+
+#chart {
+    width: 50%;
+}

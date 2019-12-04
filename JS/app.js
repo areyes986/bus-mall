@@ -9,6 +9,8 @@ var getRounds = document.getElementById('rounds');
 var pictureContainer = document.getElementById('imageContainer');
 var getProducts = document.getElementById('product-list');
 
+var chartContainer = document.getElementById('myChart');
+
 var picArray = [];
 var picArrayGenerate = [picOne, picTwo, picThree,];
 var rounds = 25;
@@ -64,7 +66,8 @@ function handleClick(event) {
   if (rounds === 0) {
     hide(getRounds);
     hide(pictureContainer);
-    listProducts();
+    makeChart();
+    // listProducts();
   }
   generateImages();
   // console.table(picArray);
@@ -85,14 +88,37 @@ function hide(elem) {
 }
 
 // list of products
-function listProducts() {
-  for (var i = 0; i < picArray.length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = `${picArray[i].title} had ${picArray[i].click} votes and was shown ${picArray[i].viewed} times`;
-    getProducts.appendChild(liEl);
-  }
-}
+// function listProducts() {
+//   for (var i = 0; i < picArray.length; i++) {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = `${picArray[i].title} had ${picArray[i].click} votes and was shown ${picArray[i].viewed} times`;
+//     getProducts.appendChild(liEl);
+//   }
+// }
 
+//my chart
+
+function makeChart() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [0, 10, 5, 2, 20, 30, 45]
+      }]
+    },
+
+    // Configuration options go here
+    options: {}
+  });
+}
 
 function createOnPageLoad() {
   new Pictures('bag', 'Bag');
