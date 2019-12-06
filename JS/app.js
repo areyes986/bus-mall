@@ -1,23 +1,21 @@
 'use script';
 
-//Global variables
+///// GLOBAL VARIABLES /////
 var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 
 var getRounds = document.getElementById('rounds');
 var pictureContainer = document.getElementById('imageContainer');
-// var getProducts = document.getElementById('product-list');
 
 var picArray = [];
 var picArrayGenerate = [picOne, picTwo, picThree,];
 var rounds = 25;
 var picArrayTitle = [];
-console.log(picArrayTitle);
 var picArrayViewed = [];
 var picArrayClicked = [];
 
-//create constructor
+///// CREATE CONSTRUCTOR /////
 function Pictures(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
@@ -28,7 +26,7 @@ function Pictures(src, name) {
   picArray.push(this);
 }
 
-//Random index gen
+///// RANDOM INDEX GEN /////
 function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -43,7 +41,6 @@ function generateImages() {
 
     }
     currentImages.push(indexes);
-    // console.log(currentImages);
 
     picArrayGenerate[i].src = picArray[indexes].src;
     picArrayGenerate[i].title = picArray[indexes].title;
@@ -54,7 +51,7 @@ function generateImages() {
 
 
 
-//event listener
+///// EVENT LISTENER /////
 function handleClick(event) {
   var vote = event.target.title;
   for (var i = 0; i < picArray.length; i++) {
@@ -69,22 +66,42 @@ function handleClick(event) {
     hide(getRounds);
     hide(pictureContainer);
     makeChart();
+    saveData();
     // listProducts();
   }
   generateImages();
   // console.table(picArray);
 }
 
-//stating which round user is on
+///// SAVE DATA /////
+function saveData(){
+  var makeIntoString = JSON.stringify(picArray);
+  localStorage.setItem('pictures', makeIntoString);
+}
+
+///// GET DATA /////
+function getData(){
+  var retrieveData = localStorage.getItem('pictures');
+  var makeIntoObject = JSON.parse(retrieveData);
+  
+  var extraVotes = 0;
+  for(var i = 0; i < picArrayClicked.length; i++){
+    
+  }
+  
+}
+
+///// TELLING USER WHICH ROUNDS THEY ARE ON /////
 function countRounds() {
   getRounds.textContent = `Round ${rounds}`;
 }
 
+///// HIDE FUNCTION /////
 function hide(elem) {
   elem.style.display = 'none';
 }
 
-// list of products
+///// LIST OF PRODUCTS /////
 // function listProducts() {
 //   for (var i = 0; i < picArray.length; i++) {
 //     var liEl = document.createElement('li');
@@ -95,15 +112,16 @@ function hide(elem) {
 
 
 
-//my chart
+///// CHART /////
 function makeChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
   for (var i = 0; i < picArray.length; i++) {
     picArrayTitle.push(picArray[i].title);
     picArrayViewed.push(picArray[i].viewed);
     picArrayClicked.push(picArray[i].click);
+
   }
-  
+
   var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
@@ -112,11 +130,20 @@ function makeChart() {
     data: {
       labels: picArrayTitle,
       datasets: [{
-        label: 'Bus Mall Votes!',
+        label: 'Views',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: picArrayViewed, picArrayClicked
-      }]
+        data: picArrayViewed
+      },
+
+      {
+        label: 'Votes',
+        backgroundColor: 'rgb(255,177,193)',
+        borderColor: 'rgb (255,177,193)',
+        data: picArrayClicked
+      },
+      ],
+
     },
 
     // Configuration options go here
@@ -152,6 +179,6 @@ function createOnPageLoad() {
 
 createOnPageLoad();
 pictureContainer.addEventListener('click', handleClick);
+getData();
 generateImages();
 countRounds();
-// console.table(picArray);
