@@ -79,17 +79,19 @@ function saveData(){
   localStorage.setItem('pictures', makeIntoString);
 }
 
-///// GET DATA /////
+/// GET DATA /////
 function getData(){
   var retrieveData = localStorage.getItem('pictures');
   var makeIntoObject = JSON.parse(retrieveData);
-  
-  var extraVotes = 0;
-  for(var i = 0; i < picArrayClicked.length; i++){
-    
+
+  if (makeIntoObject !== null ){
+    for(var i = 0; i < picArray.length; i++){
+      picArray[i].click =+ makeIntoObject[i].click;
+      console.log(makeIntoObject[i].click);
+    }
   }
-  
 }
+
 
 ///// TELLING USER WHICH ROUNDS THEY ARE ON /////
 function countRounds() {
@@ -122,6 +124,8 @@ function makeChart() {
 
   }
 
+  Chart.defaults.global.defaultFontFamily	= 'Sulphur Point';
+
   var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
@@ -152,7 +156,6 @@ function makeChart() {
 
 }
 
-
 function createOnPageLoad() {
   new Pictures('bag', 'Bag');
   new Pictures('banana', 'Banana');
@@ -178,7 +181,8 @@ function createOnPageLoad() {
 
 
 createOnPageLoad();
-pictureContainer.addEventListener('click', handleClick);
 getData();
+console.table(picArray);
+pictureContainer.addEventListener('click', handleClick);
 generateImages();
 countRounds();

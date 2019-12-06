@@ -5,7 +5,16 @@ body {
 
 h1 {
     font-size: 50px;
+    font-family: 'Playfair Display', serif;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    background-color: rgb(140, 200, 233);
 }
+
+#rounds {
+    font-family: 'Playfair Display', serif;
+}
+
 #imageContainer > img  {
     width: 200px;
     margin: 50px;
