@@ -5,6 +5,9 @@ A website that has the user vote on products they would like to see on their bus
 **Last Updated:** 12/08/2019  
 **Deployed Site:** [Bus Mall](https://areyes986.github.io/bus-mall/)
 
+# How to Run #
+Use `live-server` from index.html.
+
 # References #  
 
 [Random Number Generator from MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)  
