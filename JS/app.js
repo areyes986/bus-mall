@@ -14,6 +14,7 @@ var rounds = 25;
 var picArrayTitle = [];
 var picArrayViewed = [];
 var picArrayClicked = [];
+var previousImages = [];
 
 ///// CREATE CONSTRUCTOR /////
 function Pictures(src, name) {
@@ -36,17 +37,17 @@ function generateImages() {
   var currentImages = [];
   for (var i = 0; i < picArrayGenerate.length; i++) {
     var indexes = randomIndex(picArray.length);
-    while (currentImages.includes(indexes)) {
+    while (currentImages.includes(indexes) || previousImages.includes(indexes)) {
       indexes = randomIndex(picArray.length);
-
     }
     currentImages.push(indexes);
-
+    
     picArrayGenerate[i].src = picArray[indexes].src;
     picArrayGenerate[i].title = picArray[indexes].title;
     picArrayGenerate[i].alt = picArray[indexes].alt;
     picArray[indexes].viewed++;
   }
+  previousImages = currentImages;
 }
 
 
@@ -67,10 +68,7 @@ function handleClick(event) {
     hide(pictureContainer);
     makeChart();
     saveData();
-    // listProducts();
   }
-  generateImages();
-  // console.table(picArray);
 }
 
 ///// SAVE DATA /////
@@ -87,7 +85,6 @@ function getData(){
   if (makeIntoObject !== null ){
     for(var i = 0; i < picArray.length; i++){
       picArray[i].click =+ makeIntoObject[i].click;
-      console.log(makeIntoObject[i].click);
     }
   }
 }
@@ -102,16 +99,6 @@ function countRounds() {
 function hide(elem) {
   elem.style.display = 'none';
 }
-
-///// LIST OF PRODUCTS /////
-// function listProducts() {
-//   for (var i = 0; i < picArray.length; i++) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = `${picArray[i].title} had ${picArray[i].click} votes and was shown ${picArray[i].viewed} times`;
-//     getProducts.appendChild(liEl);
-//   }
-// }
-
 
 
 ///// CHART /////
@@ -182,7 +169,6 @@ function createOnPageLoad() {
 
 createOnPageLoad();
 getData();
-console.table(picArray);
 pictureContainer.addEventListener('click', handleClick);
 generateImages();
 countRounds();
