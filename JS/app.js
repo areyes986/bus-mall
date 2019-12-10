@@ -18,7 +18,7 @@ var previousImages = [];
 
 ///// CREATE CONSTRUCTOR /////
 function Pictures(src, name) {
-  this.src = `../img/${src}.jpg`;
+  this.src = `./img/${src}.jpg`;
   this.title = name;
   this.alt = name;
   this.click = 0;
@@ -41,7 +41,7 @@ function generateImages() {
       indexes = randomIndex(picArray.length);
     }
     currentImages.push(indexes);
-    
+
     picArrayGenerate[i].src = picArray[indexes].src;
     picArrayGenerate[i].title = picArray[indexes].title;
     picArrayGenerate[i].alt = picArray[indexes].alt;
